@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  labels:
+    app: server
+spec:
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+        tier: web
+    spec:
+      containers:
+        - name: server
+          image: server
+          ports:
+            - containerPort: 50051
+          resources:
+            requests:
+              cpu: "10m"
+        - name: client
+          image: client
+          resources:
+            requests:
+              cpu: "10m"
