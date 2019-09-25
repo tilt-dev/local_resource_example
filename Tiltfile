@@ -1,6 +1,8 @@
 local_resource('proto', cmd='go generate ./greeter_server', deps=['helloworld/helloworld.proto'])
 
-docker_build('server', '.', dockerfile='Dockerfile.server')
-docker_build('client', '.', dockerfile='Dockerfile.client')
+docker_build('helloworld-server', '.', dockerfile='Dockerfile.server',
+             ignore="./greeter_client")
+docker_build('helloworld-client', '.', dockerfile='Dockerfile.client',
+             ignore="./greeter_server")
 
 k8s_yaml(['k8s/server.yaml'])
