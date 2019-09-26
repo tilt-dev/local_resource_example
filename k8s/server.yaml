@@ -35,25 +35,3 @@ spec:
       protocol: TCP
   selector:
     app: helloworld-server
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: helloworld-client
-  labels:
-    app: helloworld-client
-spec:
-  selector:
-    matchLabels:
-      app: helloworld-client
-  template:
-    metadata:
-      labels:
-        app: helloworld-client
-    spec:
-      containers:
-        - name: helloworld-client
-          image: helloworld-client
-          resources:
-            requests:
-              cpu: "10m"
