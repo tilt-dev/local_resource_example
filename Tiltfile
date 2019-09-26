@@ -1,6 +1,6 @@
 # Once upon a time, the below line would have been:
 #     local('go generate ./greeter_server')
-#     watch_files('helloworld/helloworld.proto')
+#     watch_file('helloworld/helloworld.proto')
 # and every change to your .proto file OR to your Tiltfile would regenerate your protobufs,
 # making everything slower and more annoying.
 #
