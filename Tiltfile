@@ -1,9 +1,4 @@
-## REMOVE ME
-allow_k8s_contexts('gke_blorg-dev_us-central1-b_blorg')
-default_registry('gcr.io/windmill-public-containers/local_resource')
-## REMOVE ME
-
-# Once upon a time, this would have been
+# Once upon a time, the below line would have been:
 #     local('go generate ./greeter_server')
 #     watch_files('helloworld/helloworld.proto')
 # and every change to your .proto file OR to your Tiltfile would regenerate your protobufs,
