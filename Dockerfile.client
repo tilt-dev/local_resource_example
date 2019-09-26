@@ -9,4 +9,4 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install ./greeter_client/...
 
 EXPOSE 50051
-ENTRYPOINT ["greeter_client"]
+ENTRYPOINT ["/app/start.sh", "greeter_client"]

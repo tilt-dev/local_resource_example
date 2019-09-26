@@ -1,29 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server
+  name: helloworld-server
   labels:
-    app: server
+    app: helloworld-server
 spec:
   selector:
     matchLabels:
-      app: server
+      app: helloworld-server
   template:
     metadata:
       labels:
-        app: server
-        tier: web
+        app: helloworld-server
     spec:
       containers:
-        - name: server
-          image: server
+        - name: helloworld-server
+          image: helloworld-server
           ports:
             - containerPort: 50051
           resources:
             requests:
               cpu: "10m"
-        - name: client
-          image: client
-          resources:
-            requests:
-              cpu: "10m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-server
+  labels:
+    app: helloworld-server
+spec:
+  ports:
+    - port: 80
+      targetPort: 50051
+      protocol: TCP
+  selector:
+    app: helloworld-server

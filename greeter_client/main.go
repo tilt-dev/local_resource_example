@@ -30,7 +30,7 @@ import (
 )
 
 const (
-	address     = "localhost:50051"
+	address     = "helloworld-server:80"
 	defaultName = "world"
 )
 
@@ -48,14 +48,23 @@ func main() {
 	if len(os.Args) > 1 {
 		name = os.Args[1]
 	}
+
+	var failCount int
 	for {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
 		r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
 		if err != nil {
-			log.Fatalf("could not greet: %v", err)
+			if failCount < 3 {
+				failCount += 1
+				log.Printf("-- failed to greet, will retry in %ds", failCount)
+				time.Sleep(time.Duration(failCount) * time.Second)
+			} else {
+				log.Fatalf("could not greet: %v", err)
+			}
+		} else {
+			log.Printf("Greeting: %s", r.Message)
 		}
-		log.Printf("Greeting: %s", r.Message)
 
 		time.Sleep(1 * time.Second)
 	}
