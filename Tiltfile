@@ -18,7 +18,7 @@ docker_build('helloworld-server', '.', dockerfile='Dockerfile.server',
              ignore=['./greeter_client', './helloworld/helloworld.proto'],
              live_update=[
                  sync('./greeter_server/', '/app/greeter_server'),
-                 sync('./helloworld/helloworld.pb.go', '/app/helloworld'),
+                 sync('./helloworld/helloworld.pb.go', '/app/helloworld/'),
                  run('CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install /app/greeter_server/...'),
                  run('/app/restart.sh'),
              ])
@@ -28,7 +28,7 @@ docker_build('helloworld-client', '.', dockerfile='Dockerfile.client',
              ignore=['./greeter_server', './helloworld/helloworld.proto'],
              live_update=[
                  sync('./greeter_client/', '/app/greeter_client'),
-                 sync('./helloworld/helloworld.pb.go', '/app/helloworld'),
+                 sync('./helloworld/helloworld.pb.go', '/app/helloworld/'),
                  run('CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install /app/greeter_client/...'),
                  run('/app/restart.sh'),
              ])
