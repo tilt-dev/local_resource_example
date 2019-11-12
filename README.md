@@ -2,19 +2,7 @@
 This repo is a simple client+server that exchange greetings. They communicate via [protocol buffers](https://developers.google.com/protocol-buffers)
 generated from `helloworld.proto`.
 
-The purpose of this repo is to show off [our new `local_resource` functionality](https://docs.tilt.dev/api.html#api.local_resource). Once upon a time, you might have written the following line in your Tiltfile:
-```python
-local('go generate ./greeter_server')
-watch_file('helloworld/helloworld.proto')
-```
-This would regenerate your protobufs every time you change `helloworld.proto` -- but it would also re-execute your entire Tiltfile. More annoyingly, it would also regenerate your protobufs whenever your Tiltfile re-executed, whether they needed regenerating or not. This solution was hacky, resulted in commands running at unexpected times, and generally made things slow and annoying.
-
-The alternative was running `go generate ./greeter_server` by hand whenever you changed your `.proto` file.
-Your Tiltfile execution was faster, your proto generation was predictable, but you had to remember to run
-the command when you changed a certain file, which shook you out of your workflow (assuming that you remembered at all,
-and didn't spend multiple minutes wondering why something on your server wasn't working).
-
-Local Resource is here to help! In this Tiltfile, we call:
+The purpose of this repo is to show off [our new `local_resource` functionality](https://docs.tilt.dev/local_resource.html). In this Tiltfile, we call:
 ```python
 local_resource('proto', cmd='go generate ./greeter_server', deps=['helloworld/helloworld.proto'])
 ```
